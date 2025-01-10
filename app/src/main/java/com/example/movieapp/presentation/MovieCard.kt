@@ -21,9 +21,7 @@ fun MovieCard(movies: Search) {
         .padding(16.dp)) {
         Column(modifier = Modifier.padding(9.dp)) {
             Text(text = movies.Title, color = Color.Black)
-
-
-
+            Text(text = movies.Title, color = Color.Black)
         }
     }
 }

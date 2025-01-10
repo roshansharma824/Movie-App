@@ -33,6 +33,9 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.movieapp.ui.theme.BackgroundColor
+import com.example.movieapp.ui.theme.GrayTextColor
+import com.example.movieapp.ui.theme.TopBarBackgroundColor
 
 
 @Composable
@@ -73,7 +76,7 @@ fun SearchScreenTopBar(
             },
             modifier = Modifier
                 .background(
-                    color = Color.Gray,
+                    color = TopBarBackgroundColor,
                     shape = RoundedCornerShape(50)
                 )
                 .padding(horizontal = 8.dp),
@@ -108,7 +111,13 @@ fun SearchTextField(
             .fillMaxWidth()
             .focusRequester(focusRequester)
             .onFocusChanged { isKeyboardVisible = true },
-
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            backgroundColor = TopBarBackgroundColor,
+            focusedBorderColor = TopBarBackgroundColor,
+            unfocusedBorderColor = BackgroundColor,
+            focusedLabelColor = BackgroundColor,
+            cursorColor = GrayTextColor,
+        ),
         keyboardOptions = KeyboardOptions.Default.copy(
             imeAction = ImeAction.Done
         ),

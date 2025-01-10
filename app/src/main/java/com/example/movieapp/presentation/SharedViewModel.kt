@@ -31,7 +31,7 @@ class SharedViewModel @Inject constructor():ViewModel(){
     val movies = _movies.asStateFlow()
 
     //second state the text typed by the user
-    val _searchText = MutableStateFlow("spider")
+    val _searchText = MutableStateFlow("i")
     val searchText = _searchText.asStateFlow()
 
     init {
@@ -43,9 +43,9 @@ class SharedViewModel @Inject constructor():ViewModel(){
         _movies.value.isLoading = true
         try {
             viewModelScope.launch(Dispatchers.IO){
-                repository.getSearchMovies(_searchText.value).collect{ result->
-                    _movies.value.item = result
-                }
+//                repository.getSearchMovies(_searchText.value).collect{ result->
+//                    _movies.value.item = result
+//                }
 
             }
         }catch (e:Exception){
@@ -61,10 +61,8 @@ class SharedViewModel @Inject constructor():ViewModel(){
                 _movies.value.isLoading = true
                 try {
                     viewModelScope.launch(Dispatchers.IO){
-                        repository.getSearchMovies(_searchText.value).collect{ result->
-                            _movies.value.item = result
-                        }
-
+                        val result = repository.getSearchMovies(_searchText.value)
+                        _movies.value.item = result
                     }
                 }catch (e:Exception){
                     _movies.value.error = e.message.toString()
