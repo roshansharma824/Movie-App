@@ -47,11 +47,11 @@ fun SearchScreenTopBar(
     var searchInput by remember { mutableStateOf("") }
 
     Box(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+        modifier = Modifier.padding(horizontal = 0.dp, vertical = 0.dp)
     ) {
         TopAppBar(
             backgroundColor = Color.Transparent,
-            contentColor = Color.Transparent,
+            contentColor = Color.Gray,
             actions = {
                 IconButton(onClick = {
                     searchInput = ""
@@ -69,7 +69,7 @@ fun SearchScreenTopBar(
             },
             elevation = 0.dp,
             title = {
-                SearchTextField(text = searchInput, placeholderText = "Search yours notes") { newText ->
+                SearchTextField(text = searchInput, placeholderText = "Search Movies") { newText ->
                     searchInput = newText
                     onQueryChanged(searchInput)
                 }
@@ -77,9 +77,9 @@ fun SearchScreenTopBar(
             modifier = Modifier
                 .background(
                     color = TopBarBackgroundColor,
-                    shape = RoundedCornerShape(50)
+
                 )
-                .padding(horizontal = 8.dp),
+                .padding(horizontal = 0.dp),
             navigationIcon = {
 
             }
