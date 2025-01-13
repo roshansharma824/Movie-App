@@ -36,38 +36,23 @@ class SharedViewModel @Inject constructor():ViewModel(){
 
     init {
         initialize()
-//        getSearchMovies()
-    }
-
-    private fun getSearchMovies(){
-        _movies.value.isLoading = true
-        try {
-            viewModelScope.launch(Dispatchers.IO){
-//                repository.getSearchMovies(_searchText.value).collect{ result->
-//                    _movies.value.item = result
-//                }
-
-            }
-        }catch (e:Exception){
-            _movies.value.error = e.message.toString()
-        }
-
     }
 
     @OptIn(FlowPreview::class)
-    fun initialize() {
+    private fun initialize() {
         viewModelScope.launch {
-            _searchText.debounce(timeoutMillis = 500).collectLatest { input ->
-                _movies.value.isLoading = true
-                try {
-                    viewModelScope.launch(Dispatchers.IO){
-                        val result = repository.getSearchMovies(_searchText.value)
-                        _movies.value.item = result
+            _searchText
+                .debounce(500) // Debounce for 500ms
+                .collectLatest { input ->
+                    _movies.value = ItemState(isLoading = true) // Create a new instance to emit
+                    try {
+                        // Fetch movies from repository
+                        val result = repository.getSearchMovies(input)
+                        _movies.value = ItemState(item = result) // Create new instance with movies
+                    } catch (e: Exception) {
+                        _movies.value = ItemState(error = e.message.toString()) // Emit new error state
                     }
-                }catch (e:Exception){
-                    _movies.value.error = e.message.toString()
                 }
-            }
         }
     }
 }
