@@ -31,7 +31,7 @@ class SharedViewModel @Inject constructor():ViewModel(){
     val movies = _movies.asStateFlow()
 
     //second state the text typed by the user
-    val _searchText = MutableStateFlow("i")
+    val _searchText = MutableStateFlow("Iron")
     val searchText = _searchText.asStateFlow()
 
     init {
@@ -42,7 +42,7 @@ class SharedViewModel @Inject constructor():ViewModel(){
     private fun initialize() {
         viewModelScope.launch {
             _searchText
-                .debounce(500) // Debounce for 500ms
+                .debounce(1000) // Debounce for 500ms
                 .collectLatest { input ->
                     _movies.value = ItemState(isLoading = true) // Create a new instance to emit
                     try {
